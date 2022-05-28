@@ -3,6 +3,8 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 import platform
 from termcolor import cprint
+from font import FONT
+import unicodedata
 
 
 # Features to implement :
@@ -93,11 +95,7 @@ def run(init, update, draw):
     pygame.init()
     SCREEN = pygame.display.set_mode((128, 128), flags=pygame.SCALED|pygame.RESIZABLE)
     pygame.display.set_caption(NAME)
-
-    info("Initializing game...")
     init()
-    info("Game initialized.")
-    info("Starting game loop...")
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -115,10 +113,7 @@ def set_fps(fps):
     FPS = fps
 def get_fps():
     """returns the current fps of the game"""
-    return pygame.time.Clock().get_fps()
-
-
-
+    return round(gameclock.get_fps())
 def set_name(name):
     """sets the name of the game"""
     global NAME
@@ -127,18 +122,62 @@ def set_name(name):
 
 
 ### DRAWING FUNCTIONS ###
-def pset(x, y, color):
+def pset(x, y, color=7):
     """sets the pixel at the given coordinates to the given color"""
     SCREEN.set_at((x, y), COLORS[color])
+def rect(x0, y0, x1, y1, color=7):
+    """draws a rectangle"""
+    pygame.draw.rect(SCREEN, COLORS[color], (x0, y0, x1, y1))
+def rectfill(x0, y0, x1, y1, color=7):
+    """fills a rectangle"""
+    pygame.draw.rect(SCREEN, COLORS[color], (x0, y0, x1, y1), 0)
+def circ(x, y, r, color=7):
+    """draws a circle"""
+    pygame.draw.circle(SCREEN, COLORS[color], (x, y), r)
+def circfill(x, y, r, color=7):
+    """fills a circle"""
+    pygame.draw.circle(SCREEN, COLORS[color], (x, y), r, 0)
+def line(x0, y0, x1, y1, color=7):
+    """draws a line"""
+    pygame.draw.line(SCREEN, COLORS[color], (x0, y0), (x1, y1))
+def oval(x0, y0, x1, y1, color=7):
+    """draws an oval"""
+    pygame.draw.ellipse(SCREEN, COLORS[color], (x0, y0, x1, y1))
+def ovalfill(x0, y0, x1, y1, color=7):
+    """fills an oval"""
+    pygame.draw.ellipse(SCREEN, COLORS[color], (x0, y0, x1, y1), 0)
+def gprint(text, x, y, color=7):
+    """
+    This function does not use the built-in text funciton, but replicates pico-8 character font and displays it pixel per pixel.
+    Fonts are loaded from the font.py file.
+    Text is converted to uppercase and accents are removed.
+    """
+    # split the text in characters
+    text = text.upper()
+    chars = [c for c in unicodedata.normalize('NFD', text) if unicodedata.category(c) != 'Mn']
+    for c in range(len(chars)) :
+        char = chars[c] 
+        if char in FONT.keys():
+            cMat = FONT[char]
+        else : 
+            cMat = FONT['?']
+        
+        # draw the character
+        for i in range(5) :
+            for j in range(3) :
+                if cMat[i][j] == 1 :
+                    pset(x+ c*4 + j, y + i, color)
+
+
 def pget(x, y):
     """returns the color of the pixel at the given coordinates"""
     pixel = SCREEN.get_at((x, y))
     pixelRGB = (pixel[0], pixel[1], pixel[2])
     index = COLORS.index(pixelRGB)
     return index
-def cls():
+def cls(color=0):
     """clears the screen"""
-    SCREEN.fill(COLORS[0])
+    SCREEN.fill(COLORS[color])
 
 
 ### INPUT ###
