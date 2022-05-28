@@ -105,8 +105,11 @@ def run(init, update, draw):
     global KEYPRESSEVENTS
     pygame.init()
     SCREEN = pygame.display.set_mode((128, 128), flags=pygame.SCALED|pygame.RESIZABLE)
+    logo = pygame.image.load("logo.png")
+    pygame.display.set_icon(logo)
     pygame.display.set_caption(NAME)
-    init()
+    if init is not None:
+        init()
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -146,8 +149,10 @@ def run(init, update, draw):
         #         KEYPRESSEVENTS[key] = 2
         #         # 2 -> The key is either still pressed or still not pressed
         
-        update()
-        draw()
+        if update is not None:
+            update()
+        if draw is not None:
+            draw()
         pygame.display.flip()
         gameclock.tick(FPS)
 
