@@ -1,3 +1,5 @@
+# demo for various functions, building a simple snake game. Draws with primitives, and detects user inputs.
+
 from engine import *
 import random
 

@@ -49,6 +49,16 @@ SCREEN = None
 gameclock = pygame.time.Clock()
 
 
+KEYPRESSEVENTS = {
+    "U":0,
+    "D":0,
+    "L":0,
+    "R":0,
+    "A":0,
+    "B":0
+}
+
+
 COLORS = [
     (0, 0, 0),
     (29, 43, 83),
@@ -92,6 +102,7 @@ def success(arg):
 
 def run(init, update, draw):
     global SCREEN
+    global KEYPRESSEVENTS
     pygame.init()
     SCREEN = pygame.display.set_mode((128, 128), flags=pygame.SCALED|pygame.RESIZABLE)
     pygame.display.set_caption(NAME)
@@ -101,6 +112,40 @@ def run(init, update, draw):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
+
+        # this works
+        # each key has three possible values : 
+        # -> 0 : not pressed
+        # -> 1 : just got pressed
+        # -> 2 : held down
+        # -> 3 : just got released
+
+        for key in KEYPRESSEVENTS.keys():
+            if KEYPRESSEVENTS[key] == 1:
+                KEYPRESSEVENTS[key] = 2
+            elif KEYPRESSEVENTS[key] == 3:
+                KEYPRESSEVENTS[key] = 0
+            
+            if btn(key) and KEYPRESSEVENTS[key] == 0:
+                KEYPRESSEVENTS[key] = 1
+            elif not btn(key) and KEYPRESSEVENTS[key] == 2:
+                KEYPRESSEVENTS[key] = 3
+
+
+
+        # for key in KEYPRESSEVENTS.keys():
+        #     if KEYPRESSEVENTS[key] == 2 and btn(key):
+        #         print(f"Key {key} pressed")
+        #         KEYPRESSEVENTS[key] = 0
+        #         # 0 -> The key just got pressed
+        #     if KEYPRESSEVENTS[key] == 2 and not btn(key):
+        #         print(f"Key {key} released")
+        #         KEYPRESSEVENTS[key] = 1
+        #         # 1 -> The key just got released
+        #     else : 
+        #         KEYPRESSEVENTS[key] = 2
+        #         # 2 -> The key is either still pressed or still not pressed
+        
         update()
         draw()
         pygame.display.flip()
@@ -153,7 +198,7 @@ def gprint(text, x, y, color=7):
     Text is converted to uppercase and accents are removed.
     """
     # split the text in characters
-    text = text.upper()
+    text = str(text).upper()
     chars = [c for c in unicodedata.normalize('NFD', text) if unicodedata.category(c) != 'Mn']
     for c in range(len(chars)) :
         char = chars[c] 
@@ -185,8 +230,16 @@ def btn(button):
     """returns if the button is currently pressed or not"""
     return pygame.key.get_pressed()[INPUT[button]]
 def btnp(button):
-    """returns if the button was just pressed, aka only once"""
-    return pygame.key.get_pressed()[INPUT[button]] and not btn(button)
+    """
+    returns if the button was just pressed, aka only once
+    to do this we use a dictionary that stores the state of the button at each frame before the update function.
+    if the btn(button) returns true but the state is false in the dictionary, then the button was just pressed.
+    """
+    return KEYPRESSEVENTS[button] == 1
+def btnr(button):
+    """returns if the button was just released"""
+    return KEYPRESSEVENTS[button] == 3
+    
 
 # Printing welcome message (can be disabled in the options later)
 print("\n")
