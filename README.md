@@ -24,6 +24,12 @@ In the future, the goal is to create a graphical user interface, and all the fea
 
 The module is not yet available on PyPI, but it's a goal on the roadmap.
 
+You need to install the requirements by running the following command :
+
+```bash
+pip install -r requirements.txt
+```
+
 For now, to install the module, simply clone the repository, and create a python file containing the following boilerplate code in the root of the folder.
 
 ```python
@@ -209,7 +215,7 @@ The module comes with a set of functions to draw objects on the screen.
 
 My goal is to create a fully-fledged game engine, wiht just enough features to be able to make complete games, but also simple enough to be used by anybody, and to have a extremely reasonable learning curve.
 
-Some features are to be expected : 
+Some features are to be expected :
 
 - Graphical User Interface, **Pico-8** style : It won't be mandatory, and you will still be able to use the engine without it. It probably won't contain a code editor, but it will be possible to create your own sprites, musics, maps, sound effects, etc.
 
@@ -227,4 +233,6 @@ Some features are to be expected :
 
 - Replacing lists with numpy arrays : If I ever encounter performance issues, I'll try using numpy wherever I can to improve performance.
 
-- Not using **Pygame** : **Pygame** sure is useful, but I may be able to recreate all my graphics features without it. This would be more performant and would result in a way lighter engine. 
+- Not using **Pygame** : **Pygame** sure is useful, but I may be able to recreate all my graphics features without it. This would be more performant and would result in a way lighter engine.
+
+- `pip install pyco-8` : I want to upload the project on the Python Package Index (PyPI) once it's stable, complete and documented enough. For now, the only way to use the engine will be to download the source code.
