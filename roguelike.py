@@ -41,6 +41,8 @@ def _update():
 def _draw():
     cls(1)
     p.draw()
+    oval(0, 0, 50, 100)
+    gprint(get_fps(), 1, 1)
 
 
 run(_init, _update, _draw)

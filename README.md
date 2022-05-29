@@ -1,20 +1,20 @@
-# pyco-8
+# Pyco-8
 
-![pyco-8 logo, no copyright claimed](logo.png)
+![Pyco-8 logo, no copyright claimed](logo.png)
 
-pyco-8 is a game engine based on Pygame, enabling the creation of little games with an API similar to the fantasy console Pico-8, with the Python programming language.
+**Pyco-8** is a game engine based on **Pygame**, enabling the creation of videogames with an API similar to the fantasy console **Pico-8**, with the **Python** programming language.
 
-The goal was to solve three problems that people could have with pico-8 :
+The goal was to solve three problems that people could have with **Pico-8** :
 
 - It's paid, and you can't use it for free.
-- It uses the Lua programming language
-- It has limitations. I understand it's the principal interest of fantasy consoles, but you might want to program using the style of pico-8, without it's limitations.
+- It uses the **Lua** programming language, which is great but not as popular as **Python**.
+- It has limitations. I understand it's the principal interest of fantasy consoles, but you might want to program using the style of **Pico-8**, without it's limitations.
 
-This way, I've been recoding the engine in Python, and I hope it will be useful for you.
+This way, I've been recoding the engine in **Python**, and I hope it will be useful for you.
 
-For now, it does not have a Graphical User Interface, and I don't support all the features of pico-8 yet (sprites, map, sounds, etc).
+For now, it does not have a Graphical User Interface, and I don't support all the features of **Pico-8** yet (sprites, maps, sounds, etc).
 
-In the future, the goal is to create a graphical user interface, and all the features of pico-8, so that you can easily create games with the same simplicity of pico-8, but with way more flexibility, external librairies, multiplayer, save states, etc.
+In the future, the goal is to create a graphical user interface, and all the features of **Pico-8**, so that you can easily create games with the same simplicity, but with way more flexibility, external librairies, multiplayer, save states, etc.
 
 ---
 
@@ -43,12 +43,14 @@ run(_init, _update, _draw)
 
 This boilerplate code should generate a blank window with a black background.
 
+This window is resizeable, and you can even set it to fullscreen. The screen will always be a square, and the aspect ratio will be preserved. Black borders will be added to the sides if the window is not a square.
+
 ---
 
 ### Customization
 
 After cloning the repository, you should have a `config.py` file, containing settings you can change to customize the engine.
-By Default, these settings will emulate pico-8, but you can break the limitations by adding colors, modifying the defaut font, changing the resolution, and adding inputs.
+By Default, these settings will emulate **Pico-8**, but you can break the limitations by adding colors, modifying the defaut font, changing the resolution, and adding inputs.
 
 ---
 
@@ -60,7 +62,11 @@ You can write your code in four different sections of your game file.
 
 You can define constants, classes, functions, and global variables in the body of your game file. Be careful, declaring simple variables here will prevent them from modifying their value in the game loop functions.
 
-The best practice here is to store your constants as variables in the body of the code, and to store your variables in classes. 
+This is basic **Python** knowledge, which is required to use the engine.
+
+I also recommend using objects to store your game data.
+
+The best practice here is to store your constants as variables in the body of the code, and to store your variables in classes.
 
 _Example :_
 
@@ -88,7 +94,7 @@ run(None, None, None) # If you don't use any of the three functions, you can pas
 
 #### **Initialisation**
 
-The `_init` function is called once at the beginning of the game loop. This function only runs when the engine is properly initialized. Here you can call system functions, to change the window title, the framerate, etc. 
+The `_init` function is called once at the beginning of the game loop. This function only runs when the engine is properly initialized. Here you can call system functions, to change the window title, the framerate, etc.
 
 #### **Update**
 
@@ -122,7 +128,9 @@ success("This is a sample success message") # Green text
 debug("This is a sample debug message") # White text
 ```
 
-You can still use the regular print function to print messages if you want some additional features the print function has, such as modifying the end character, or printing multiple variables using multiple arguments.
+You can still use the regular `print` function to print messages if you want some additional features the print function has, such as modifying the end character, or printing multiple variables using multiple arguments.
+
+> TODO : Add all the optional parameters of the original `print`function into all of the logging functions.
 
 ---
 
@@ -152,3 +160,71 @@ Finally, you can change the name of the window using the set_name() function.
 ```python
 set_name("Hello from Pyco-8 Documentation !") # Change the name of the window
 ```
+
+#### **Drawing**
+
+The module comes with a set of functions to draw objects on the screen.
+
+- `pset(x, y, [color])` : Draw a pixel at the given coordinates, with the given color. By default, - and that is true for every drawing function that takes an optional color argument -, the function will use the color 7, which is white with the default color palette.
+
+- `rect(x, y, width, height, [color])` : Draw a rectangle at the given coordinates, with the given width and height, and the given color.
+
+- `rectfill(x, y, width, height, [color])` : Draw a filled rectangle at the given coordinates, with the given width and height, and the given color.
+
+- `circ(x, y, radius, [color])` : Draw a circle at the given coordinates, with the given radius, and the given color.
+
+- `circfill(x, y, radius, [color])` : Draw a filled circle at the given coordinates, with the given radius, and the given color.
+
+- `line(x1, y1, x2, y2, [color])` : Draw a line between the given coordinates, with the given color.
+
+- `oval(x, y, width, height, [color])` : Draw an oval at the given coordinates, with the given width and height, and the given color.
+
+- `ovalfill(x, y, width, height, [color])` : Draw a filled oval at the given coordinates, with the given width and height, and the given color.
+
+> TODO : Make the width of the lines configurable via another parameter.
+
+- `gprint(text, x, y, [color])` : Draw the given text at the given coordinates, with the given color using the font defined in the `config.py` file.
+
+- `spr(sprite, x, y)` : Draw the given sprite at the given coordinates.
+
+> TODO :
+>
+> - Make a sprite editor, to create sprites.
+> - Allow sprites to be stretched, flipped, and rotated.
+
+- `pget(x, y)` : Return the color of the pixel at the given coordinates.
+
+#### **Inputs**
+
+- `btn(button)` : Return the state of the given button.
+- `btnp(button)` : Returns True if the button has just been pressed.
+- `btnr(button)` : Returns True if the button has just been released.
+
+> Note : The button argument is a key from the INPUT dictionary defined in the config.py file. By default : `up`, `down`, `left`, `right`,`'action1`, `action2`.
+>
+> The buttons strings are not case sensitive : `UP`, `Down`, `left`, `RIGHT`, `action1`, `aCtIoN2` are all valid.
+
+
+## What else is coming ?
+
+My goal is to create a fully-fledged game engine, wiht just enough features to be able to make complete games, but also simple enough to be used by anybody, and to have a extremely reasonable learning curve.
+
+Some features are to be expected : 
+
+- Graphical User Interface, **Pico-8** style : It won't be mandatory, and you will still be able to use the engine without it. It probably won't contain a code editor, but it will be possible to create your own sprites, musics, maps, sound effects, etc.
+
+- Sounds : You will be able to play sounds from mp3 files, or from a list of pre-defined sounds. You will also be able to play specific frequencies from a determined period of time.
+
+- Music : You will be able to play music from mp3 files. You will also be able to combine sounds to create a music.
+
+- Sprite editor : A GUI Tool that allows you to create sprites, and to edit them. Sprites can be stored in a single spritesheet, or in multiple separate files.
+
+- Map editor : A GUI Tool that allows you to create maps, and to edit them.
+
+- Camera : You will be able to move the camera around the screen, and to follow objects.
+
+- Export : The goal is to create an exported for at least the three main Operating Systems (Windows, Linux, and MacOS), and for the web (HTML5). I'm not sure if it's possible to create stable enough versions for the web, but I'll do my best. (Maybe checkout Trinket ?)
+
+- Replacing lists with numpy arrays : If I ever encounter performance issues, I'll try using numpy wherever I can to improve performance.
+
+- Not using **Pygame** : **Pygame** sure is useful, but I may be able to recreate all my graphics features without it. This would be more performant and would result in a way lighter engine. 

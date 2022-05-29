@@ -142,7 +142,7 @@ def line(x0, y0, x1, y1, color=7):
     pygame.draw.line(SCREEN, COLORS[color], (x0, y0), (x1, y1))
 def oval(x0, y0, x1, y1, color=7):
     """draws an oval"""
-    pygame.draw.ellipse(SCREEN, COLORS[color], (x0, y0, x1, y1))
+    pygame.draw.ellipse(SCREEN, COLORS[color], (x0, y0, x1, y1), width=1)
 def ovalfill(x0, y0, x1, y1, color=7):
     """fills an oval"""
     pygame.draw.ellipse(SCREEN, COLORS[color], (x0, y0, x1, y1), 0)
@@ -163,8 +163,8 @@ def gprint(text, x, y, color=7):
             cMat = FONT['?']
         
         # draw the character
-        for i in range(5) :
-            for j in range(3) :
+        for i in range(len(cMat)) :
+            for j in range(len(cMat[i])) :
                 if cMat[i][j] == 1 :
                     pset(x+ c*4 + j, y + i, color)
 
