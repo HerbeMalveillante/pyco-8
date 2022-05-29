@@ -210,7 +210,6 @@ The module comes with a set of functions to draw objects on the screen.
 >
 > The buttons strings are not case sensitive : `UP`, `Down`, `left`, `RIGHT`, `action1`, `aCtIoN2` are all valid.
 
-
 ## What else is coming ?
 
 My goal is to create a fully-fledged game engine, wiht just enough features to be able to make complete games, but also simple enough to be used by anybody, and to have a extremely reasonable learning curve.
