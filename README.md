@@ -241,3 +241,5 @@ Some features are to be expected :
 - Not using **Pygame** : **Pygame** sure is useful, but I may be able to recreate all my graphics features without it. This would be more performant and would result in a way lighter engine.
 
 - `pip install pyco-8` : I want to upload the project on the Python Package Index (PyPI) once it's stable, complete and documented enough. For now, the only way to use the engine will be to download the source code.
+
+- Fill patterns : I want to add a fill pattern feature, so that you can draw a filled shape with a pattern.
