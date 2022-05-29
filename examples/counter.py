@@ -13,9 +13,9 @@ def _init():
     
 
 def _update():
-    if btnp("A"):
+    if btnp("primary"):
         counter.c += 1
-    if btnr("A"):
+    if btnr("primary"):
         counter.d += 1
 
 def _draw():

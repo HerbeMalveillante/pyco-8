@@ -49,14 +49,7 @@ SCREEN = None
 gameclock = pygame.time.Clock()
 
 
-KEYPRESSEVENTS = {
-    "U":0,
-    "D":0,
-    "L":0,
-    "R":0,
-    "A":0,
-    "B":0
-}
+
 
 
 COLORS = [
@@ -78,14 +71,25 @@ COLORS = [
     (255, 204, 170)
 ]
 
-INPUT = {
-    "U": pygame.K_UP,
-    "D": pygame.K_DOWN,
-    "L": pygame.K_LEFT,
-    "R": pygame.K_RIGHT,
-    "A": pygame.K_w,
-    "B": pygame.K_x
+INPUT = { # extended keyset
+    "up": pygame.K_UP,
+    "down": pygame.K_DOWN,
+    "left": pygame.K_LEFT,
+    "right": pygame.K_RIGHT,
+    "primary": pygame.K_w,
+    "secondary": pygame.K_x,
+    "z": pygame.K_z,
+    "q" : pygame.K_q,
+    "s" : pygame.K_s,
+    "d" : pygame.K_d,
+    "e" : pygame.K_e,
+    "a": pygame.K_a,
 }
+
+KEYPRESSEVENTS = {}
+
+for key in INPUT.keys():
+    KEYPRESSEVENTS[key] = 0
 
 ### LOG ###
 def info(arg):
@@ -233,17 +237,17 @@ def cls(color=0):
 ### INPUT ###
 def btn(button):
     """returns if the button is currently pressed or not"""
-    return pygame.key.get_pressed()[INPUT[button]]
+    return pygame.key.get_pressed()[INPUT[button.lower()]]
 def btnp(button):
     """
     returns if the button was just pressed, aka only once
     to do this we use a dictionary that stores the state of the button at each frame before the update function.
     if the btn(button) returns true but the state is false in the dictionary, then the button was just pressed.
     """
-    return KEYPRESSEVENTS[button] == 1
+    return KEYPRESSEVENTS[button.lower()] == 1
 def btnr(button):
     """returns if the button was just released"""
-    return KEYPRESSEVENTS[button] == 3
+    return KEYPRESSEVENTS[button.lower()] == 3
     
 
 # Printing welcome message (can be disabled in the options later)
