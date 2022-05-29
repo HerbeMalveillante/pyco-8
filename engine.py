@@ -83,7 +83,6 @@ def run(init, update, draw):
                 pygame.quit()
                 quit()
 
-        # this works
         # each key has three possible values : 
         # -> 0 : not pressed
         # -> 1 : just got pressed

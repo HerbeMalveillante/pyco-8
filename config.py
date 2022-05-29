@@ -2,6 +2,9 @@ import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 
+
+### TODO : change this file to load data from a json file if it exists
+
 ### GRAPHICS ###
 RESOLUTION = (128,128) # classic pico-8 resolution
 ICON = "logo.png" # will be displayed in the taskbar and on the top left of the window
