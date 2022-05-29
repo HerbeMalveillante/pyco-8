@@ -40,12 +40,13 @@ def _update():
     p.move()
     
 def _draw():
-    cls(1)
     p.draw()
-    for i in range(2000):
+    for i in range(get_frame()):
         # draw a random circle
-        rect(random.randint(0, 128), random.randint(0, 128), random.randint(1, 30), random.randint(1, 30), random.randint(1, 15))
+        rectfill(random.randint(0, 128), random.randint(0, 128), random.randint(1, 30), random.randint(1, 30), random.randint(1, 15))
     rectfill(0, 0, 9, 7, 1)
     gprint(get_fps(), 1, 1)
+    rectfill(0, 7, 9, 7, 1)
+    gprint(get_frame(), 1, 8)
 
 run(_init, _update, _draw)

@@ -46,6 +46,7 @@ from config import RESOLUTION, ICON, COLORS, INPUT, FONT, WELCOME
 FPS = 30
 NAME = "pyco-8 game"
 SCREEN = None
+FRAME = 0
 gameclock = pygame.time.Clock()
 
 KEYPRESSEVENTS = {}
@@ -69,6 +70,7 @@ def success(arg):
 def run(init, update, draw):
     global SCREEN
     global KEYPRESSEVENTS
+    global FRAME
     pygame.init()
     SCREEN = pygame.display.set_mode(RESOLUTION, flags=pygame.SCALED|pygame.RESIZABLE)
     logo = pygame.image.load(ICON)
@@ -105,6 +107,7 @@ def run(init, update, draw):
             draw()
         pygame.display.flip()
         gameclock.tick(FPS)
+        FRAME += 1
 
 ### META ###
 def set_fps(fps):
@@ -119,6 +122,9 @@ def set_name(name):
     global NAME
     NAME = name
     pygame.display.set_caption(NAME)
+def get_frame():
+    """returns the current frame of the game"""
+    return FRAME
 
 
 ### DRAWING FUNCTIONS ###

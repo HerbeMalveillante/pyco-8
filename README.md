@@ -161,6 +161,12 @@ Additionally, you can retrieve the fps count using the `get_fps` function.
 framerate = get_fps() # Get the current framerate
 ```
 
+You can also return the number of the current frame using the `get_frame` function.
+
+```python
+frame = get_frame() # Get the current frame number
+```
+
 Finally, you can change the name of the window using the set_name() function.
 
 ```python
@@ -173,19 +179,19 @@ The module comes with a set of functions to draw objects on the screen.
 
 - `pset(x, y, [color])` : Draw a pixel at the given coordinates, with the given color. By default, - and that is true for every drawing function that takes an optional color argument -, the function will use the color 7, which is white with the default color palette.
 
-- `rect(x, y, width, height, [color])` : Draw a rectangle at the given coordinates, with the given width and height, and the given color.
+- `rect(x0, y0, x1, y1, [color])` : Draw a rectangle at the given coordinates, and the given color.
 
-- `rectfill(x, y, width, height, [color])` : Draw a filled rectangle at the given coordinates, with the given width and height, and the given color.
+- `rectfill(x0, y0, x1, y1, [color])` : Draw a filled rectangle at the given coordinates, and the given color.
 
 - `circ(x, y, radius, [color])` : Draw a circle at the given coordinates, with the given radius, and the given color.
 
 - `circfill(x, y, radius, [color])` : Draw a filled circle at the given coordinates, with the given radius, and the given color.
 
-- `line(x1, y1, x2, y2, [color])` : Draw a line between the given coordinates, with the given color.
+- `line(x0, y0, x1, y1, [color])` : Draw a line between the given coordinates, with the given color.
 
-- `oval(x, y, width, height, [color])` : Draw an oval at the given coordinates, with the given width and height, and the given color.
+- `oval(x0, y0, x1, y1, [color])` : Draw an oval at the given coordinates, and the given color.
 
-- `ovalfill(x, y, width, height, [color])` : Draw a filled oval at the given coordinates, with the given width and height, and the given color.
+- `ovalfill(x0, y0, x1, y1, [color])` : Draw a filled oval at the given coordinates, with the given width and height, and the given color.
 
 > TODO : Make the width of the lines configurable via another parameter.
 
