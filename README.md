@@ -243,3 +243,5 @@ Some features are to be expected :
 - `pip install pyco-8` : I want to upload the project on the Python Package Index (PyPI) once it's stable, complete and documented enough. For now, the only way to use the engine will be to download the source code.
 
 - Fill patterns : I want to add a fill pattern feature, so that you can draw a filled shape with a pattern.
+
+- Documentation : I want to migrate the documentation online, maybe to ReadTheDocs, with proper formatting and respecting all the conventions.

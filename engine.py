@@ -7,42 +7,6 @@ import unicodedata
 from config import RESOLUTION, ICON, COLORS, INPUT, FONT, WELCOME
 
 
-# Features to implement :
-
-# running function
-# -> _init() | runs when the game starts
-# -> _update() | runs every frame
-# -> _draw() | runs every frame
-# -> set_fps(fps) | set the fps of the game
-
-# pixels
-# -> pget(x, y) | returns the color of the pixel at the given coordinates
-# -> pset(x, y, color) | sets the pixel at the given coordinates to the given color
-
-# shapes
-# -> rect(x0, y0, x1, y1, color)
-# -> rectfill(x0, y0, x1, y1, color)
-# -> circ(x, y, r, color)
-# -> circfill(x, y, r, color)
-# -> line(x0, y0, x1, y1, color)
-# -> gprint(text, x, y, color)
-# -> oval(x0, y0, x1, y1, color)
-# -> ovalfill(x0, y0, x1, y1, color)
-
-# controls
-# the game has a set of controls that can be used to control the game
-# four directional buttons : up, down, left, right
-# two action buttons : action1, action2
-# buttons will be customizable
-# pico-8 supports two players, but pyco-8 will only support customizable controls for the whole keyboard
-#
-# -> btn(button) | returns if the button is currently pressed or not.
-# -> btnp(button) | returns if the button was just pressed, aka only once
-
-# time
-# -> time() | returns the current time in fractional seconds since the start of the game
-# -> frames() | returns the current number of frames since the start of the game
-
 FPS = 30
 NAME = "pyco-8 game"
 SCREEN = None
