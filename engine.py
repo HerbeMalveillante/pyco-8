@@ -5,6 +5,7 @@ import platform
 from termcolor import cprint
 import unicodedata
 from config import RESOLUTION, ICON, COLORS, INPUT, FONT, WELCOME
+import math
 
 
 FPS = 30
@@ -97,10 +98,10 @@ def pset(x, y, color=7):
     SCREEN.set_at((x, y), COLORS[color])
 def rect(x0, y0, x1, y1, color=7):
     """draws a rectangle"""
-    pygame.draw.rect(SCREEN, COLORS[color], (x0, y0, x1, y1))
+    pygame.draw.rect(SCREEN, COLORS[color], (x0, y0, x1-x0, y1-y0), 1)
 def rectfill(x0, y0, x1, y1, color=7):
     """fills a rectangle"""
-    pygame.draw.rect(SCREEN, COLORS[color], (x0, y0, x1, y1), 0)
+    pygame.draw.rect(SCREEN, COLORS[color], (x0, y0, x1-x0, y1-y0), 0)
 def circ(x, y, r, color=7):
     """draws a circle"""
     pygame.draw.circle(SCREEN, COLORS[color], (x, y), r)
@@ -175,6 +176,65 @@ def btnp(button):
 def btnr(button):
     """returns if the button was just released"""
     return KEYPRESSEVENTS[button.lower()] == 3
+
+class Vector2():
+    """
+    A class that represents a 2D vector.
+    """
+    def __init__(self, x=0, y=0):
+        self.x = x
+        self.y = y
+    def __add__(self, other):
+        return Vector2(self.x + other.x, self.y + other.y)
+    def __sub__(self, other):
+        return Vector2(self.x - other.x, self.y - other.y)
+    def __mul__(self, other):
+        return Vector2(self.x * other, self.y * other)
+    def __truediv__(self, other):
+        return Vector2(self.x / other, self.y / other)
+    def __str__(self):
+        return "Vector2({}, {})".format(self.x, self.y)
+    def __repr__(self):
+        return "Vector2({}, {})".format(self.x, self.y)
+    def __eq__(self, other):
+        return self.x == other.x and self.y == other.y
+    def __ne__(self, other):
+        return self.x != other.x or self.y != other.y
+    def __neg__(self):
+        return Vector2(-self.x, -self.y)
+    def __abs__(self):
+        return Vector2(abs(self.x), abs(self.y))
+    def __round__(self):
+        return Vector2(round(self.x), round(self.y))
+    def __floor__(self):
+        return Vector2(math.floor(self.x), math.floor(self.y))
+    def __ceil__(self):
+        return Vector2(math.ceil(self.x), math.ceil(self.y))
+    def __getitem__(self, index):
+        if index == 0:
+            return self.x
+        elif index == 1:
+            return self.y
+        else:
+            raise IndexError("Vector2 only has 2 dimensions")
+    def __setitem__(self, index, value):
+        if index == 0:
+            self.x = value
+        elif index == 1:
+            self.y = value
+        else:
+            raise IndexError("Vector2 only has 2 dimensions")
+    def length(self):
+        return math.sqrt(self.x**2 + self.y**2)
+    def normalize(self):
+        """
+        Normalizes the vector.
+        Returns a new vector with the same direction but a length of 1.
+        """
+        length = self.length()
+        if length == 0:
+            return Vector2(0, 0)
+        return Vector2(self.x / length, self.y / length)
     
 
 # Printing welcome message (can be disabled in the options later)
