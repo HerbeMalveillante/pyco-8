@@ -3,9 +3,8 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 import platform
 from termcolor import cprint
-from font import FONT
 import unicodedata
-from config import RESOLUTION, ICON, COLORS, INPUT
+from config import RESOLUTION, ICON, COLORS, INPUT, FONT
 
 
 # Features to implement :
