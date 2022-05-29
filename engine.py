@@ -4,7 +4,7 @@ import pygame
 import platform
 from termcolor import cprint
 import unicodedata
-from config import RESOLUTION, ICON, COLORS, INPUT, FONT
+from config import RESOLUTION, ICON, COLORS, INPUT, FONT, WELCOME
 
 
 # Features to implement :
@@ -208,8 +208,9 @@ def btnr(button):
     
 
 # Printing welcome message (can be disabled in the options later)
-print("\n")
-info(f"Welcome to pyco-8 ! Version 0.1.0 | Pygame version : {pygame.version.ver} | Python version : {platform.python_version()}\n")
+if WELCOME:
+    print("\n")
+    info(f"Welcome to pyco-8 ! Version 0.1.0 (DEV) | Pygame version : {pygame.version.ver} | Python version : {platform.python_version()}\n")
 
 if __name__ == "__main__":
     error("This file contains the source code of the engine. It is not meant to be run directly. Please run main.py instead.")

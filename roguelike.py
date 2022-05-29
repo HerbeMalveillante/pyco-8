@@ -1,4 +1,5 @@
 from engine import *
+import random
 
 
 sprite = [
@@ -41,8 +42,10 @@ def _update():
 def _draw():
     cls(1)
     p.draw()
-    oval(0, 0, 50, 100)
+    for i in range(2000):
+        # draw a random circle
+        rect(random.randint(0, 128), random.randint(0, 128), random.randint(1, 30), random.randint(1, 30), random.randint(1, 15))
+    rectfill(0, 0, 9, 7, 1)
     gprint(get_fps(), 1, 1)
-
 
 run(_init, _update, _draw)
