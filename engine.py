@@ -5,6 +5,7 @@ import platform
 from termcolor import cprint
 from font import FONT
 import unicodedata
+from config import RESOLUTION, ICON, COLORS, INPUT
 
 
 # Features to implement :
@@ -34,7 +35,7 @@ import unicodedata
 # four directional buttons : up, down, left, right
 # two action buttons : action1, action2
 # buttons will be customizable
-# pico-8 supports two players, but pyco-8 will only support one at the moment.
+# pico-8 supports two players, but pyco-8 will only support customizable controls for the whole keyboard
 #
 # -> btn(button) | returns if the button is currently pressed or not.
 # -> btnp(button) | returns if the button was just pressed, aka only once
@@ -47,44 +48,6 @@ FPS = 30
 NAME = "pyco-8 game"
 SCREEN = None
 gameclock = pygame.time.Clock()
-
-
-
-
-
-COLORS = [
-    (0, 0, 0),
-    (29, 43, 83),
-    (126, 37, 83),
-    (0, 135, 81),
-    (171, 82, 54),
-    (95, 87, 79),
-    (194, 195, 199),
-    (255, 241, 232),
-    (255, 0, 77),
-    (255, 163, 0),
-    (255, 236, 39),
-    (0, 228, 54),
-    (41, 173, 255),
-    (131, 118, 156),
-    (255, 119, 168),
-    (255, 204, 170)
-]
-
-INPUT = { # extended keyset
-    "up": pygame.K_UP,
-    "down": pygame.K_DOWN,
-    "left": pygame.K_LEFT,
-    "right": pygame.K_RIGHT,
-    "primary": pygame.K_w,
-    "secondary": pygame.K_x,
-    "z": pygame.K_z,
-    "q" : pygame.K_q,
-    "s" : pygame.K_s,
-    "d" : pygame.K_d,
-    "e" : pygame.K_e,
-    "a": pygame.K_a,
-}
 
 KEYPRESSEVENTS = {}
 
@@ -108,8 +71,8 @@ def run(init, update, draw):
     global SCREEN
     global KEYPRESSEVENTS
     pygame.init()
-    SCREEN = pygame.display.set_mode((128, 128), flags=pygame.SCALED|pygame.RESIZABLE)
-    logo = pygame.image.load("logo.png")
+    SCREEN = pygame.display.set_mode(RESOLUTION, flags=pygame.SCALED|pygame.RESIZABLE)
+    logo = pygame.image.load(ICON)
     pygame.display.set_icon(logo)
     pygame.display.set_caption(NAME)
     if init is not None:
@@ -137,21 +100,6 @@ def run(init, update, draw):
                 KEYPRESSEVENTS[key] = 1
             elif not btn(key) and KEYPRESSEVENTS[key] == 2:
                 KEYPRESSEVENTS[key] = 3
-
-
-
-        # for key in KEYPRESSEVENTS.keys():
-        #     if KEYPRESSEVENTS[key] == 2 and btn(key):
-        #         print(f"Key {key} pressed")
-        #         KEYPRESSEVENTS[key] = 0
-        #         # 0 -> The key just got pressed
-        #     if KEYPRESSEVENTS[key] == 2 and not btn(key):
-        #         print(f"Key {key} released")
-        #         KEYPRESSEVENTS[key] = 1
-        #         # 1 -> The key just got released
-        #     else : 
-        #         KEYPRESSEVENTS[key] = 2
-        #         # 2 -> The key is either still pressed or still not pressed
         
         if update is not None:
             update()
@@ -221,6 +169,17 @@ def gprint(text, x, y, color=7):
             for j in range(3) :
                 if cMat[i][j] == 1 :
                     pset(x+ c*4 + j, y + i, color)
+
+def spr(x, y, spr):
+    """
+    draws a sprite.
+    A sprite is a matrix of pixel colors.
+    any color index that is not between 0 and 15 means transparent.
+    """
+    for i in range(len(spr)):
+        for j in range(len(spr[0])):
+            if spr[i][j] in range(16):
+                pset(x+j, y+i, spr[i][j])
 
 
 def pget(x, y):

@@ -1,15 +1,23 @@
 from engine import *
 
 
+sprite = [
+    [7,8,7],
+    [8,9,8],
+    [7,8,7]
+]
+
+
+
 
 class Player():
     def __init__(self):
         self.x = 1
         self.y = 1
-        self.size = 8
+        self.size = 3
     
     def draw(self):
-        gprint("?", self.x, self.y)
+        spr(self.x, self.y, sprite)
     
     def move(self):
         if btn("z"):
@@ -25,7 +33,7 @@ p = Player()
 
 def _init():
     set_name("RogueLike")
-    set_fps(30)
+    set_fps(60)
 
 def _update():
     p.move()
